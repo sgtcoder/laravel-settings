@@ -11,8 +11,9 @@ A simple way to manage your settings.
 
 "repositories": [
     {
+        "name": "titanium-6/laravel-settings",
         "type": "vcs",
-        "url": "https://github.com/titanium-6/laravel-settings.git"
+        "url": "git@bitbucket.org:titanium-6/laravel-settings.git"
     }
 ]
 ```
