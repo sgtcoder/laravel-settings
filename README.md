@@ -57,5 +57,8 @@ save_setting($group, $key, $value)
 
 ### Get Settings ###
 ```php
-$settings = getSettings($group, $setting = NULL);
+$settings = get_settings($group, $setting = NULL);
+
+// Deprecated/Alias Function
+$setting = get_setting($group, $setting = NULL);
 ```
