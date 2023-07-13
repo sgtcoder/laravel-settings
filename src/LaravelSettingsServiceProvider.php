@@ -4,8 +4,7 @@ namespace SgtCoder\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
 
-// https://laravel.com/docs/8.x/packages
-// https://darkghosthunter.medium.com/composer-using-your-own-local-package-2b252670d429
+// https://laravel.com/docs/10.x/packages
 class LaravelSettingsServiceProvider extends ServiceProvider
 {
     /**
@@ -35,6 +34,5 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once __DIR__ . '/Helpers.php';
     }
 }
