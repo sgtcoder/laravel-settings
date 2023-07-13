@@ -1,9 +1,9 @@
-# SgtCoder Laravel Settings #
+# Laravel Settings #
 
 A simple way to manage your settings.
 
-## Install ##
-- Add to your composer.json
+## Install Options ##
+### Option 1: Add directly to your composer.json ###
 ```
 "require": {
     "sgtcoder/laravel-settings": "1.*"
@@ -16,13 +16,28 @@ A simple way to manage your settings.
     }
 ]
 ```
-- Then Run
+
+### Option 2: Fork it and add to your composer.json ###
+```
+"require": {
+    "sgtcoder/laravel-settings": "dev-master"
+}
+
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/<workspace>/laravel-settings"
+    }
+]
+```
+
+
+### Then Run ###
 ```
 composer update
 ```
 
-## Configuration ##
-- Publish Migration
+## Publish Migration ##
 ```
 php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
 
@@ -30,17 +45,17 @@ php artisan migrate
 ```
 
 ## Usage ##
-- Save Settings
+### Save Settings ###
 ```php
 save_settings($group, $setting)
 ```
 
-- Save Single Setting
+### Save Single Setting ###
 ```php
 save_setting($group, $key, $value)
 ```
 
-- Get Settings
+### Get Settings ###
 ```php
 $settings = getSettings($group, $setting = NULL);
 ```
