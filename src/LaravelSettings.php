@@ -35,7 +35,7 @@ class LaravelSettings
     {
         $settings = Setting::where('group', $group)->pluck('payload', 'name');
 
-        if ($setting) return $settings->$setting ?? NULL;
+        if ($setting) return $settings[$setting] ?? NULL;
 
         return $settings;
     }
