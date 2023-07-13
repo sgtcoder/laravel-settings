@@ -1,4 +1,4 @@
-# Titanium6 Laravel Settings #
+# SgtCoder Laravel Settings #
 
 A simple way to manage your settings.
 
@@ -6,14 +6,13 @@ A simple way to manage your settings.
 - Add to your composer.json
 ```
 "require": {
-    "titanium-6/laravel-settings": "1.*"
+    "sgtcoder/laravel-settings": "1.*"
 }
 
 "repositories": [
     {
-        "name": "titanium-6/laravel-settings",
         "type": "vcs",
-        "url": "git@bitbucket.org:titanium-6/laravel-settings.git"
+        "url": "https://github.com/sgtcoder/laravel-settings"
     }
 ]
 ```
@@ -25,33 +24,23 @@ composer update
 ## Configuration ##
 - Publish Migration
 ```
-php artisan vendor:publish --provider="Titanium6\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
 
 php artisan migrate
 ```
 
-- Publish Config - Not Used Currently
-```
-php artisan vendor:publish --provider="Titanium6\LaravelSettings\LaravelSettingsServiceProvider" --tag="settings"
-```
-
 ## Usage ##
-
 - Save Settings
 ```php
-use Titanium6\LaravelSettings\LaravelSettings;
+save_settings($group, $setting)
+```
 
-LaravelSettings::saveSettings('group_name', request('group_name'));
+- Save Single Setting
+```php
+save_setting($group, $key, $value)
 ```
 
 - Get Settings
 ```php
-use Titanium6\LaravelSettings\LaravelSettings;
-
-$settings = ['group_name'=>LaravelSettings::getSettings('group_name')];
-```
-
-- Get Single Setting
-```php
-get_setting('group_name', 'setting_name');
+$settings = getSettings($group, $setting = NULL);
 ```

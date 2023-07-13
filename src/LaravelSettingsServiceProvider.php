@@ -1,6 +1,6 @@
 <?php
 
-namespace Titanium6\LaravelSettings;
+namespace SgtCoder\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +35,6 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once __DIR__.'/Helpers.php';
+        require_once __DIR__ . '/Helpers.php';
     }
 }
