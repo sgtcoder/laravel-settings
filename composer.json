@@ -1,29 +1,29 @@
 {
-    "name": "titanium-6/laravel-settings",
+    "name": "sgtcoder/laravel-settings",
     "description": "A simple way to manage your settings.",
     "type": "project",
     "authors": [
         {
             "name": "Michael J Brancato",
-            "email": "michael@titanium6.com"
+            "email": "usmccoder@gmail.com"
         }
     ],
     "require": {
         "php": "^7.4|^8.0"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "autoload": {
         "psr-4": {
-            "Titanium6\\LaravelSettings\\": "src"
+            "SgtCoder\\LaravelSettings\\": "src"
         },
-        "classmap": [
+        "files": [
+            "src/Helpers/Functions.php"
         ]
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Titanium6\\LaravelSettings\\LaravelSettingsServiceProvider"
+                "SgtCoder\\LaravelSettings\\LaravelSettingsServiceProvider"
             ]
         }
     },

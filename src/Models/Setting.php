@@ -1,6 +1,6 @@
 <?php
 
-namespace Titanium6\LaravelSettings\Models;
+namespace SgtCoder\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

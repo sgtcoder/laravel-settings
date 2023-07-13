@@ -1,56 +1,41 @@
 <?php
 
-namespace Titanium6\LaravelSettings;
+namespace SgtCoder\LaravelSettings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Titanium6\LaravelSettings\Models\Setting;
+use SgtCoder\LaravelSettings\Models\Setting;
 
 class LaravelSettings
 {
-    public static function saveSetting($group, $key, $value)
-    {
-        Setting::updateOrCreate(
-            [
-                'group'=>$group,
-                'name'=>$key,
-            ],
-            [
-                'group'=>$group,
-                'name'=>$key,
-                'locked'=>false,
-                'payload'=>$value,
-            ]
-        );
-    }
-
     public static function saveSettings($group, $settings)
     {
-        foreach($settings as $key=>$value){
+        foreach ($settings as $key => $value) {
             Setting::updateOrCreate(
                 [
-                    'group'=>$group,
-                    'name'=>$key,
+                    'group' => $group,
+                    'name' => $key,
                 ],
                 [
-                    'group'=>$group,
-                    'name'=>$key,
-                    'locked'=>false,
-                    'payload'=>$value,
+                    'group' => $group,
+                    'name' => $key,
+                    'locked' => false,
+                    'payload' => $value,
                 ]
             );
         }
     }
 
-    public static function getSetting($group, $setting)
+    public static function saveSetting($group, $key, $value)
     {
-        $settings = Setting::where('group', $group)->get()->pluck('payload', 'name')->toArray();
-        return $settings[$setting] ?? NULL;
+        $this->saveSettings($group, [[$key => $value]]);
     }
 
-    public static function getSettings($group)
+    public static function getSettings($group, $setting = NULL)
     {
-        $settings = Setting::where('group', $group)->get()->pluck('payload', 'name')->toArray();
+        $settings = Setting::where('group', $group)->pluck('payload', 'name');
+
+        if ($setting) return $settings->$setting ?? NULL;
 
         return $settings;
     }
