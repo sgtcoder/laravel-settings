@@ -1,12 +1,14 @@
 # Laravel Settings #
 
-A simple way to manage your settings.
+A simple way to manage your settings in Laravel without the complexity of packages like `spatie/laravel-settings`.
+
+> Breaking Changes in Laravel Settings v2
 
 ## Install Options ##
 ### Option 1: Add directly to your composer.json ###
 ```
 "require": {
-    "sgtcoder/laravel-settings": "1.*"
+    "sgtcoder/laravel-settings": "2.*"
 }
 
 "repositories": [
@@ -45,20 +47,39 @@ php artisan migrate
 ```
 
 ## Usage ##
-### Save Settings ###
-```php
-save_settings($group, $setting)
+### Get Single Setting From General or Default Group ###
+```
+settings()->get('setting_name');
+settings('general')->get('setting_name');
 ```
 
-### Save Single Setting ###
-```php
-save_setting($group, $key, $value)
+### Get All Settings from General or Default Group
+```
+settings()->get();
+settings('general')->get();
 ```
 
-### Get Settings ###
-```php
-$settings = get_settings($group, $setting = NULL);
+### Get All Settings Grouped with Model Collection from General or Default Group ###
+```
+settings()->grouped()->get();
+settings()->grouped('general')->get();
+settings()->grouped('general')->get('setting_name');
+```
 
-// Deprecated/Alias Function
-$setting = get_setting($group, $setting = NULL);
+### Set Settings for General or Default Group
+```
+settings()->set($settings);
+settings('general')->set($settings);
+```
+
+### Set Single Setting for General or Default Group ###
+```
+settings()->setAttribute('setting_name', 'setting_value');
+settings('general')->setAttribute('setting_name', 'setting_value');
+```
+
+### Replace Settings for General or Default Group (And Deletes Nulls) ###
+```
+settings()->replace($settings);
+settings('general')->replace($settings);
 ```
