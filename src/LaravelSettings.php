@@ -60,13 +60,23 @@ class LaravelSettings
      *
      * @return static
      */
-    public static function get($setting = NULL)
+    public static function get($setting = NULL, $media = false)
     {
         $settings = self::$settings;
         $group = self::$group;
         $grouped = self::$grouped;
 
-        if ($setting) $settings = $settings[$setting] ?? NULL;
+        if ($setting) {
+            $settings = $settings[$setting] ?? NULL;
+
+            if ($settings && $media) {
+                $MediaService = (new \App\Services\MediaService);
+
+                $media = \Plank\Mediable\Media::find($settings);
+
+                $settings = $MediaService->get_signed_url($media);
+            }
+        }
 
         if ($grouped) {
             $setting_group = new SettingGroup;
