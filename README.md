@@ -53,6 +53,12 @@ settings()->get('setting_name');
 settings('general')->get('setting_name');
 ```
 
+### Get Single Setting From General or Default Group with Media using Plank and MediaService ###
+```
+settings()->get('setting_name', $media = true);
+settings('general')->get('setting_name', $media = true);
+```
+
 ### Get All Settings from General or Default Group
 ```
 settings()->get();
