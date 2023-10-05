@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use SgtCoder\LaravelSettings\Models\Setting;
 use SgtCoder\LaravelSettings\Models\SettingGroup;
 
-class LaravelSettings
+final class LaravelSettings
 {
     /**
      * Holds Group
@@ -40,7 +40,7 @@ class LaravelSettings
      */
     public static function settings($group)
     {
-        return new static($group);
+        return new self($group);
     }
 
     /**
@@ -52,7 +52,7 @@ class LaravelSettings
     {
         self::$grouped = true;
 
-        return new static(self::$group);
+        return new self(self::$group);
     }
 
     /**
@@ -105,7 +105,7 @@ class LaravelSettings
         // Set New Settings
         self::set($replace_settings);
 
-        return new static(self::$group);
+        return new self(self::$group);
     }
 
     /**
@@ -136,7 +136,7 @@ class LaravelSettings
             );
         }
 
-        return new static(self::$group);
+        return new self(self::$group);
     }
 
     /**
@@ -146,9 +146,9 @@ class LaravelSettings
      */
     public static function setAttribute($key, $value)
     {
-        self::set([[$key => $value]]);
+        self::set([$key => $value]);
 
-        return new static(self::$group);
+        return new self(self::$group);
     }
 
     /**
@@ -169,5 +169,7 @@ class LaravelSettings
                 Setting::where('group', $group)->where('name', $key)->delete();
             }
         }
+
+        return new self(self::$group);
     }
 }
