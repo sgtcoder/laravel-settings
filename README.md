@@ -41,7 +41,7 @@ composer update
 
 ## Publish Migration ##
 ```
-php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider"
 
 php artisan migrate
 ```
