@@ -39,10 +39,10 @@ A simple way to manage your settings in Laravel without the complexity of packag
 composer update
 ```
 
-## Configure Package ##
-> Publishes config file and asks to run migrations
+## Publish Package ##
+> Publishes config file
 ```
-php artisan laravel-settings:install
+php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider"
 ```
 
 ## Usage ##

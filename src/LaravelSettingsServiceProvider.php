@@ -17,13 +17,10 @@ class LaravelSettingsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-settings')
-            ->hasConfigFile()
-            ->hasMigration('2023_04_17_000000_create_settings_table')
-            ->runsMigrations()
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->askToRunMigrations();
-            });
+            ->hasConfigFile('laravel-settings');
+
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
     }
 }
