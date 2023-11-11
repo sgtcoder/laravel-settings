@@ -1,5 +1,4 @@
 # Laravel Settings #
-
 A simple way to manage your settings in Laravel without the complexity of packages like `spatie/laravel-settings`.
 
 > Breaking Changes in Laravel Settings >v1
@@ -9,7 +8,7 @@ A simple way to manage your settings in Laravel without the complexity of packag
 ### Option 1: Add directly to your composer.json ###
 ```json
 "require": {
-    "sgtcoder/laravel-settings": "2.*"
+    "sgtcoder/laravel-settings": "dev-develop"
 }
 
 "repositories": [
