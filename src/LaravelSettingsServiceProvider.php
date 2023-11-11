@@ -2,33 +2,28 @@
 
 namespace SgtCoder\LaravelSettings;
 
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
-// https://laravel.com/docs/10.x/packages
-class LaravelSettingsServiceProvider extends ServiceProvider
+class LaravelSettingsServiceProvider extends PackageServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/settings.php' => config_path('settings.php'),
-            ]);
-
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        }
-    }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
+        /*
+         * This class is a Package Service Provider
+         *
+         * More info: https://github.com/spatie/laravel-package-tools
+         */
+        $package
+            ->name('laravel-settings')
+            ->hasConfigFile()
+            ->hasMigration('2023_04_17_000000_create_settings_table')
+            ->runsMigrations()
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->askToRunMigrations();
+            });
     }
 }
