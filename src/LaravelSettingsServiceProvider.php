@@ -18,8 +18,7 @@ class LaravelSettingsServiceProvider extends PackageServiceProvider
             ->name('laravel-settings')
             ->hasConfigFile('laravel-settings');
 
-        if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        }
+        // Migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }
