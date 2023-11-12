@@ -41,7 +41,7 @@ composer update
 ## Publish Package ##
 > Publishes config file
 ```
-php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider"
+php artisan vendor:publish --tag laravel-settings
 ```
 
 ## Usage ##
