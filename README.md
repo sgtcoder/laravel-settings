@@ -1,14 +1,14 @@
 # Laravel Settings #
-
 A simple way to manage your settings in Laravel without the complexity of packages like `spatie/laravel-settings`.
 
-> Breaking Changes in Laravel Settings v2
+> Breaking Changes in Laravel Settings >v1
 
-## Install Options ##
+## Installation ##
+
 ### Option 1: Add directly to your composer.json ###
-```
+```json
 "require": {
-    "sgtcoder/laravel-settings": "2.*"
+    "sgtcoder/laravel-settings": "dev-develop"
 }
 
 "repositories": [
@@ -20,7 +20,7 @@ A simple way to manage your settings in Laravel without the complexity of packag
 ```
 
 ### Option 2: Fork it and add to your composer.json ###
-```
+```json
 "require": {
     "sgtcoder/laravel-settings": "dev-master"
 }
@@ -33,17 +33,15 @@ A simple way to manage your settings in Laravel without the complexity of packag
 ]
 ```
 
-
 ### Then Run ###
 ```
 composer update
 ```
 
-## Publish Migration ##
+## Publish Package ##
+> Publishes config file
 ```
-php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
-
-php artisan migrate
+php artisan vendor:publish --provider="SgtCoder\LaravelSettings\LaravelSettingsServiceProvider"
 ```
 
 ## Usage ##
@@ -89,3 +87,9 @@ settings('general')->setAttribute('setting_name', 'setting_value');
 settings()->replace($settings);
 settings('general')->replace($settings);
 ```
+
+## Credits ##
+- [sgtcoder](https://github.com/sgtcoder)
+
+## License ##
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
