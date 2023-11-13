@@ -14,12 +14,14 @@ class LaravelSettingsServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('laravel-settings')
-            ->hasConfigFile('laravel-settings');
+        $package->name('laravel-settings');
 
-        if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        }
+        // Migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // Config
+        $this->publishes([
+            __DIR__ . '/../config/laravel-settings.php' => config_path('laravel-settings.php'),
+        ], 'laravel-settings');
     }
 }
