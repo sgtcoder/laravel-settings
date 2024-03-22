@@ -2,10 +2,10 @@
 
 namespace SgtCoder\LaravelSettings;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use SgtCoder\LaravelSettings\Models\Setting;
-use SgtCoder\LaravelSettings\Models\SettingGroup;
+use SgtCoder\LaravelSettings\Models\{
+    Setting,
+    SettingGroup
+};
 
 final class LaravelSettings
 {
@@ -70,10 +70,13 @@ final class LaravelSettings
             $settings = $settings[$setting] ?? NULL;
 
             if ($settings && $media) {
+                // @phpstan-ignore-next-line
                 $MediaService = (new \App\Services\MediaService);
 
+                // @phpstan-ignore-next-line
                 $media = \Plank\Mediable\Media::find($settings);
 
+                // @phpstan-ignore-next-line
                 $settings = $MediaService->get_signed_url($media);
             }
         }
