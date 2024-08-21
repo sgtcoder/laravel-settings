@@ -14,13 +14,11 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/settings.php' => config_path('settings.php'),
-            ]);
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        }
+        $this->publishes([
+            __DIR__ . '/../config/settings.php' => config_path('settings.php'),
+        ], 'laravel-settings');
     }
 
     /**
@@ -28,7 +26,5 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-    }
+    public function register() {}
 }
