@@ -120,11 +120,6 @@ final class LaravelSettings
     {
         $group = self::$group;
 
-        // Filter Nullables
-        $settings = collect($settings)->filter(function ($value, $key) {
-            return $value != '';
-        });
-
         // Update Individual Settings
         foreach ($settings as $key => $value) {
             Setting::updateOrCreate(
