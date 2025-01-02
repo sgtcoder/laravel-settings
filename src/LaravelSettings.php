@@ -4,8 +4,8 @@ namespace SgtCoder\LaravelSettings;
 
 use SgtCoder\LaravelSettings\Models\{
     Setting,
-    SettingGroup,
-    SettingCollection
+    SettingCollection,
+    SettingGroup
 };
 
 final class LaravelSettings
@@ -61,14 +61,14 @@ final class LaravelSettings
      *
      * @return static
      */
-    public static function get($setting = NULL, $media = false)
+    public static function get($setting = null, $media = false)
     {
         $settings = self::$settings;
         $group = self::$group;
         $grouped = self::$grouped;
 
         if ($setting) {
-            $settings = $settings[$setting] ?? NULL;
+            $settings = $settings[$setting] ?? null;
 
             if ($settings && $media) {
                 // @phpstan-ignore-next-line
