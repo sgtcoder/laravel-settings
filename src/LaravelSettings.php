@@ -4,7 +4,8 @@ namespace SgtCoder\LaravelSettings;
 
 use SgtCoder\LaravelSettings\Models\{
     Setting,
-    SettingGroup
+    SettingGroup,
+    SettingCollection
 };
 
 final class LaravelSettings
@@ -80,6 +81,10 @@ final class LaravelSettings
                 $settings = $MediaService->get_signed_url($media);
             }
         }
+
+        $settings_collection = new SettingCollection;
+        $settings_collection->fill($settings->toArray());
+        $settings = $settings_collection;
 
         if ($grouped) {
             $setting_group = new SettingGroup;

@@ -4,7 +4,7 @@ namespace SgtCoder\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SettingGroup extends Model
+class SettingCollection extends Model
 {
     /**
      * The attributes that are mass assignable.
