@@ -80,11 +80,28 @@ final class LaravelSettings
                 // @phpstan-ignore-next-line
                 $settings = $MediaService->get_signed_url($media);
             }
-        }
+        } else {
+            if ($media) {
+                // @phpstan-ignore-next-line
+                $MediaService = (new \App\Services\MediaService);
 
-        $settings_collection = new SettingCollection;
-        $settings_collection->fill($settings->toArray());
-        $settings = $settings_collection;
+                foreach ($settings as $setting_key => $setting_value) {
+                    if (str_contains($setting_key, '_media') && !is_array($setting_value)) {
+                        // @phpstan-ignore-next-line
+                        $media = \Plank\Mediable\Media::find($setting_value);
+
+                        if ($media) {
+                            // @phpstan-ignore-next-line
+                            $settings[str_replace('_media', '_url', $setting_key)] = $MediaService->get_signed_url($media);
+                        }
+                    }
+                }
+            }
+
+            $settings_collection = new SettingCollection;
+            $settings_collection->fill($settings->toArray());
+            $settings = $settings_collection;
+        }
 
         if ($grouped) {
             $setting_group = new SettingGroup;
