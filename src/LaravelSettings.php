@@ -13,25 +13,25 @@ final class LaravelSettings
     /**
      * Holds Group
      */
-    private static $group;
+    private $group;
 
     /**
      * Holds Settings
      */
-    private static $settings;
+    private $settings;
 
     /**
      * Holds Grouped
      */
-    private static $grouped;
+    private $grouped = false;
 
     /**
      * Private Construct
      */
     private function __construct($group)
     {
-        self::$group = $group;
-        self::$settings = Setting::where('group', $group)->pluck('payload', 'name');
+        $this->group = $group;
+        $this->settings = Setting::where('group', $group)->pluck('payload', 'name');
     }
 
     /**
@@ -47,25 +47,24 @@ final class LaravelSettings
     /**
      * Chained Group
      *
-     * @return static
+     * @return $this
      */
-    public static function grouped()
+    public function grouped()
     {
-        self::$grouped = true;
-
-        return new self(self::$group);
+        $this->grouped = true;
+        return $this;
     }
 
     /**
      * Chained Get
      *
-     * @return static
+     * @return mixed
      */
-    public static function get($setting = null, $media = false)
+    public function get($setting = null, $media = false)
     {
-        $settings = self::$settings;
-        $group = self::$group;
-        $grouped = self::$grouped;
+        $settings = $this->settings;
+        $group = $this->group;
+        $grouped = $this->grouped;
 
         if ($setting) {
             $settings = $settings[$setting] ?? null;
@@ -114,33 +113,33 @@ final class LaravelSettings
     }
 
     /**
-     * Chained Get
+     * Chained Replace
      *
-     * @return static
+     * @return $this
      */
-    public static function replace($replace_settings)
+    public function replace($replace_settings)
     {
-        $settings = self::$settings;
-        $group = self::$group;
+        $settings = $this->settings;
+        $group = $this->group;
 
         // Remove Old Settings
         $delete_settings = $settings->diffKeys($replace_settings);
-        self::delete($delete_settings);
+        $this->delete($delete_settings);
 
         // Set New Settings
-        self::set($replace_settings);
+        $this->set($replace_settings);
 
-        return new self(self::$group);
+        return $this;
     }
 
     /**
      * Chained Set
      *
-     * @return  object
+     * @return $this
      */
-    public static function set($settings)
+    public function set($settings)
     {
-        $group = self::$group;
+        $group = $this->group;
 
         // Filter Nullables
         $settings = collect($settings)->map(function ($value, $key) {
@@ -161,29 +160,28 @@ final class LaravelSettings
             );
         }
 
-        return new self(self::$group);
+        return $this;
     }
 
     /**
      * Chained Set Attribute
      *
-     * @return static
+     * @return $this
      */
-    public static function setAttribute($key, $value)
+    public function setAttribute($key, $value)
     {
-        self::set([$key => $value]);
-
-        return new self(self::$group);
+        $this->set([$key => $value]);
+        return $this;
     }
 
     /**
      * Chained Delete
      *
-     * @return static
+     * @return $this
      */
-    public static function delete($settings = [])
+    public function delete($settings = [])
     {
-        $group = self::$group;
+        $group = $this->group;
 
         if (empty($settings)) {
             Setting::where('group', $group)->delete();
@@ -195,6 +193,6 @@ final class LaravelSettings
             }
         }
 
-        return new self(self::$group);
+        return $this;
     }
 }
