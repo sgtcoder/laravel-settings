@@ -74,7 +74,7 @@ final class LaravelSettings
                 $MediaService = (new \App\Services\MediaService);
 
                 // @phpstan-ignore-next-line
-                $media = \Plank\Mediable\Media::find($settings);
+                $media = $MediaService->get_media($settings);
 
                 // @phpstan-ignore-next-line
                 $settings = $MediaService->get_signed_url($media);
@@ -84,17 +84,35 @@ final class LaravelSettings
                 // @phpstan-ignore-next-line
                 $MediaService = (new \App\Services\MediaService);
 
-                foreach ($settings as $setting_key => $setting_value) {
-                    if (str_contains($setting_key, '_media') && !is_array($setting_value)) {
-                        // @phpstan-ignore-next-line
-                        $media = \Plank\Mediable\Media::find($setting_value);
+                $settings_array = $settings->toArray();
 
-                        if ($media) {
+                foreach ($settings_array as $setting_key => $setting_value) {
+                    if (str_contains($setting_key, '_media')) {
+                        if (is_array($setting_value)) {
+                            $settings_array[str_replace('_media', '_url', $setting_key)] = [];
+
+                            foreach ($setting_value as $media) {
+                                // @phpstan-ignore-next-line
+                                $media = $MediaService->get_media($media);
+
+                                if ($media) {
+                                    // @phpstan-ignore-next-line
+                                    $settings_array[str_replace('_media', '_url', $setting_key)][] = $MediaService->get_signed_url($media);
+                                }
+                            }
+                        } else {
                             // @phpstan-ignore-next-line
-                            $settings[str_replace('_media', '_url', $setting_key)] = $MediaService->get_signed_url($media);
+                            $media = $MediaService->get_media($setting_value);
+
+                            if ($media) {
+                                // @phpstan-ignore-next-line
+                                $settings_array[str_replace('_media', '_url', $setting_key)] = $MediaService->get_signed_url($media);
+                            }
                         }
                     }
                 }
+
+                $settings = collect($settings_array);
             }
 
             $settings_collection = new SettingCollection;
