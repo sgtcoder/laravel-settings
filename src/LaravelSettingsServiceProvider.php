@@ -4,27 +4,25 @@ namespace SgtCoder\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
 
-// https://laravel.com/docs/10.x/packages
 class LaravelSettingsServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function register(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laravel-settings.php',
+            'laravel-settings'
+        );
+    }
+
+    public function boot(): void
+    {
+        if (! config('laravel-settings.ignore_migrations', false)) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
 
         $this->publishes([
             __DIR__ . '/../config/settings.php' => config_path('settings.php'),
+            __DIR__ . '/../config/laravel-settings.php' => config_path('laravel-settings.php'),
         ], 'laravel-settings');
     }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register() {}
 }
